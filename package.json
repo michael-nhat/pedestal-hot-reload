@@ -14,8 +14,9 @@
     "s-a": "clj -M:start",
     "xu": "neil dep upgrade :lib",
     "xii": "clj -P",
-    "xu-all": "neil dep upgrade :lib"
-    
+    "xu-all": "neil dep upgrade :lib",
+    "server-repl" : " clojure  -Sverbose -M:env-dev",
+    "client-repl":  " clojure  -Sverbose -M:client"
   },
   "keywords": [],
   "author": "",
