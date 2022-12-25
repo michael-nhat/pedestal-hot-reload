@@ -1,0 +1,23 @@
+{
+  "name": "pedestal-hello1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "xa": "neil add dep :lib",
+    "xi": "clj  -X:deps mvn-install",
+    "s": "clj -X:start",
+    "s-a": "clj -M:start",
+    "xu": "neil dep upgrade :lib",
+    "xii": "clj -P",
+    "xu-all": "neil dep upgrade :lib"
+    
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
