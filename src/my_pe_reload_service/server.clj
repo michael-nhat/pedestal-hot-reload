@@ -2,13 +2,23 @@
   (:gen-class) ; for -main method in uberjar
   (:require [io.pedestal.http :as server]
             [io.pedestal.http.route :as route]
-            [my-pe-reload-service.service :as service]))
+            [my-pe-reload-service.service :as service]
+            [ns-tracker.core :refer [ns-tracker]]))
 
 ;; This is an adapted service map, that can be started and stopped
 ;; From the REPL you can call server/start and server/stop on this service
 (defonce runnable-service (server/create-server service/service))
 
-(defn run-dev
+(defonce modified-namespaces
+  (ns-tracker ["src" "test"]))
+
+(defn watch-routes-fn [routes]
+    (doseq [ns-sym (modified-namespaces)]
+      (require ns-sym :reload))
+    (println "wtf" routes)
+    routes)
+
+(defn -main
   "The entry-point for 'lein run-dev'"
   [& args]
   (println "\nCreating your [DEV] server...")
@@ -18,7 +28,9 @@
               ::server/join? false
               ;; Routes can be a function that resolve routes,
               ;;  we can use this to set the routes to be reloadable
-              ::server/routes #(route/expand-routes (deref #'service/routes))
+              ;; ::server/routes service/routes
+              ;; ::server/routes #(route/expand-routes (service/routes))
+              ::server/routes #(route/expand-routes (watch-routes-fn  (service/routes)))
               ;; all origins are allowed in dev mode
               ::server/allowed-origins {:creds true :allowed-origins (constantly true)}
               ;; Content Security Policy (CSP) is mostly turned off in dev mode
@@ -29,7 +41,7 @@
       server/create-server
       server/start))
 
-(defn -main
+(defn -main2
   "The entry-point for 'lein run'"
   [& args]
   (println "\nCreating your server...")

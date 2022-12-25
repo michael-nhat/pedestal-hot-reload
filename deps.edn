@@ -35,7 +35,7 @@
                           cider/cider-nrepl          {:mvn/version "0.28.7"}
                           com.bhauman/rebel-readline {:mvn/version "0.1.4"}
                           ns-tracker/ns-tracker {:mvn/version "0.4.0"}}
-            :main-opts ["-m" "my-pe-reload-service.server/reload"]}
+            :main-opts ["-m" "my-pe-reload-service.server"]}
 
            :repl-rebel
            {:extra-deps {nrepl/nrepl                {:mvn/version "1.0.0"}
