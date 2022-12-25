@@ -10,12 +10,13 @@
 (defonce runnable-service (server/create-server service/service))
 
 (defonce modified-namespaces
-  (ns-tracker ["src" "test"]))
+  (ns-tracker ["src"]))
+(def wtf 343343)
 
 (defn watch-routes-fn [routes]
     (doseq [ns-sym (modified-namespaces)]
       (require ns-sym :reload))
-    (println "wtf" routes)
+    (println "wtf route:d" routes)
     routes)
 
 (defn -main
@@ -39,7 +40,8 @@
       server/default-interceptors
       server/dev-interceptors
       server/create-server
-      server/start))
+      server/start)
+  (println "wtfwtf"))
 
 (defn -main2
   "The entry-point for 'lein run'"

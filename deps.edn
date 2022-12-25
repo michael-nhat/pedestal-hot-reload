@@ -7,7 +7,10 @@
   org.slf4j/jul-to-slf4j {:mvn/version "1.7.35"},
   org.slf4j/jcl-over-slf4j {:mvn/version "1.7.35"},
   org.slf4j/log4j-over-slf4j {:mvn/version "1.7.35"}
-  ns-tracker/ns-tracker {:mvn/version "0.4.0"}}
+  ns-tracker/ns-tracker {:mvn/version "0.4.0"}
+  nrepl/nrepl {:mvn/version "1.1.0-alpha1"}
+  cider/cider-nrepl {:mvn/version "0.28.5"}
+  com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
  :aliases {:start ;; added by me
            {:extra-paths ["src"]
             :exec-fn my-pe-reload-service.server/-main}
@@ -35,7 +38,7 @@
                           cider/cider-nrepl          {:mvn/version "0.28.7"}
                           com.bhauman/rebel-readline {:mvn/version "0.1.4"}
                           ns-tracker/ns-tracker {:mvn/version "0.4.0"}}
-            :main-opts ["-m" "my-pe-reload-service.server"]}
+            :main-opts ["-m" "my-pe-reload-service.repl"]}
 
            :repl-rebel
            {:extra-deps {nrepl/nrepl                {:mvn/version "1.0.0"}

@@ -3,16 +3,18 @@
             [io.pedestal.http.route :as route]
             [io.pedestal.http.body-params :as body-params]
             [ring.util.response :as ring-resp]))
+(def random-thing (rand))
+(def wtf 343343)
 
 (defn about-page
   [request]
-  (ring-resp/response (format "Clojure %s - served from %s wtf wtf"
+  (ring-resp/response (format "Clojure %s - served from %s wtf wtf%s "
                               (clojure-version)
+                              random-thing
                               (route/url-for ::about-page))))
-
 (defn home-page
   [request]
-  (ring-resp/response "fsdfsffd dfsdfd sfsd"))
+  (ring-resp/response "fsdfsffd dfsdfd sfsdsdfsddddddddsaaaaddd xxxxx"))
 
 
 ;; Defines "/" and "/about" routes with their associated :get handlers.
