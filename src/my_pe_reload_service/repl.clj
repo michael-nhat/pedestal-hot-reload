@@ -4,9 +4,11 @@
             [nrepl.core :as nrepl]
             [nrepl.server :as nrepl-server]
             [nrepl.transport :as transport]
+            [nrepl.cmdline]
             [my-pe-reload-service.server :as server] ;; [nrepl.transport :refer [send]]
             
-            [rebel-readline.main :as rebel]))
+            [rebel-readline.main :as rebel]
+            [nrepl.cmdline :as cmdline]))
 ;; (pedestal-hello1.pedestal-hello1/-main)
 
 (def conn)
@@ -23,12 +25,18 @@
   )
 
 
-(defn -main [& _]
+(defn -main [& _args]
+  ;; (println "wtf: ")
+  ;; (println _args)
+  ;; (println "wtf end: ")
+
 ;;   (nrepl-server/start-server :port 7889 :handler cider-nrepl-handler)
-  (nrepl-server/start-server :port 7885 :handler cider-nrepl-handler :greeting-fn greeting-fn)
+  ;; (nrepl.cmdline/-main :port 7885 :handler cider-nrepl-handler :greeting-fn greeting-fn)
+  (apply nrepl.cmdline/-main _args)
   (server/-main)
   (ns pedestal-hello1.pedestal-hello1)
   (println "my nrepl server ")
   (rebel/-main)
-  (System/exit 0))
+  (System/exit 0)
+  )
 

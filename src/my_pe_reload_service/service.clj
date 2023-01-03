@@ -26,6 +26,7 @@
 (defn routes [] #{["/" :get (conj common-interceptors `home-page)]
                ["/about" :get (conj common-interceptors `about-page)]})
 
+
 ;; Map-based routes
 ;(def routes `{"/" {:interceptors [(body-params/body-params) http/html-body]
 ;                   :get home-page
