@@ -42,12 +42,40 @@
 (def table (pan/DataFrame (print (np/random :randn 8 4)) :index dates :columns ["A" "B" "C" "D"]))
 
 (np/linspace 2 3 :num 10)
-(py/py. np/random/randn 4)
-(defmacro a1 [fun res] `(py. np/random ~fun ~res))
-(macroexpand `(a1 "randn" 4))
+(py/py. np/random randn 4)
+(defmacro a1 [fun res res2] `(py. np/random ~fun ~@(list res res2)))
+(macroexpand `(a1 "randn" 4.534 sd))
+(defmacro plus [a b] `(+ ~a ~b))
+(macroexpand `(plus "kjsdf" 4))
 (py. np/random "randn" 4)
-(a1 "randn" 4)
-(macroexpand `(a1 randn 4))
+(a1 "randn" 4 "sdkfj")
+(defmacro report
+  ;; & args to make arg a list
+  [& to-try]
+  `(if ~to-try
+     to-try
+     (println (quote ~to-try) "was successful:" ~to-try)
+     (println (quote ~to-try) "was not successful:" ~to-try)))
+(defmacro report1.5
+  ;; in macro, itnput already a list, oh no, it's wrong, it is form depend
+  ;; it would it, list or single
+  ;; so ~ athing, to make it value(nspace/name), or content if it is a list (a b c) =expand=> a b c
+  [to-try]
+  `(if ~to-try
+     to-try
+     (println (quote ~to-try) "was successful:" ~to-try)
+     (println (quote ~to-try) "was not successful:" ~to-try)))
+(macroexpand `(report (= 1 1)))
+(macroexpand `(report1.5 (= 1 1)))
+(defmacro report2
+  [to-try]
+  `(let [result# ~to-try]
+     (if result#
+       (println (quote ~to-try) "was successful:" result#)
+       (println (quote ~to-try) "was not successful:" result#))))
+(macroexpand `(report (=)))
+(macroexpand `(report2 (1)))
+(macroexpand `(a1 randn 4 3))
 
 
 (def row-date (pan/date_range :start "2000-01-01" :end "2000-01-01"))
