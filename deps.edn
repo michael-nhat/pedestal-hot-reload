@@ -9,15 +9,17 @@
   org.slf4j/log4j-over-slf4j {:mvn/version "1.7.35"}
   ns-tracker/ns-tracker {:mvn/version "0.4.0"}
   nrepl/nrepl {:mvn/version "1.1.0-alpha1"}
-  cider/cider-nrepl {:mvn/version "0.28.5"}
-  com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
+  cider/cider-nrepl {:mvn/version "0.29.0"}
+  com.bhauman/rebel-readline {:mvn/version "0.1.4"}
+  clj-python/libpython-clj {:mvn/version "2.023"}
+  techascent/tech.datatype {:mvn/version "5.18"}}
  :aliases {:start ;; added by me
            {:extra-paths ["src"]
             :exec-fn my-pe-reload-service.server/-main}
 
            :client ;; added by neil
            {:extra-deps {nrepl/nrepl                {:mvn/version "1.0.0"}
-                         cider/cider-nrepl          {:mvn/version "0.28.7"}
+                         cider/cider-nrepl          {:mvn/version "0.29.0"}
                          com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
             :main-opts ["-m" "nrepl.cmdline" "--interactive" "--color" "--connect"
                         "--host" "127.0.0.1"
@@ -25,7 +27,7 @@
 
            :nrepl
            {:extra-deps {nrepl/nrepl                {:mvn/version "1.0.0"}
-                         cider/cider-nrepl          {:mvn/version "0.28.7"}
+                         cider/cider-nrepl          {:mvn/version "0.29.0"}
                          com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
             :main-opts  ["-m" "nrepl.cmdline"
                          "--middleware" "[cider.nrepl/cider-middleware]"
@@ -35,18 +37,19 @@
            :env-dev
            {:extra-paths ["src"]
             :extra-deps  {nrepl/nrepl                {:mvn/version "1.0.0"}
-                          cider/cider-nrepl          {:mvn/version "0.28.7"}
+                          cider/cider-nrepl          {:mvn/version "0.29.0"}
                           com.bhauman/rebel-readline {:mvn/version "0.1.4"}
                           ns-tracker/ns-tracker {:mvn/version "0.4.0"}}
             :main-opts ["-m" "my-pe-reload-service.repl"
-                        "--interactive" "--color" 
+                        "--interactive" "--color"
                         ;; "--connect"
+                        "--handler" "cider.nrepl/cider-nrepl-handler"
                         "--host" "127.0.0.1"
                         "--port" "7885"]}
 
            :repl-rebel
            {:extra-deps {nrepl/nrepl                {:mvn/version "1.0.0"}
-                         cider/cider-nrepl          {:mvn/version "0.28.7"}
+                         cider/cider-nrepl          {:mvn/version "0.29.0"}
                          com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
             ;; :extra-paths ["dev"]
             :main-opts  ["-m" "nrepl.cmdline"

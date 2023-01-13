@@ -6,7 +6,6 @@
             [nrepl.transport :as transport]
             [nrepl.cmdline]
             [my-pe-reload-service.server :as server] ;; [nrepl.transport :refer [send]]
-            
             [rebel-readline.main :as rebel]
             [nrepl.cmdline :as cmdline]))
 ;; (pedestal-hello1.pedestal-hello1/-main)
@@ -21,9 +20,7 @@
   (transport/send t {:out (str ";; nREPL " "wtf anh nhat oi")})
   ;; (nrepl/message t {:out "(+ 2 3)"})
   ;; (require 'pedestal-hello1.pedestal-hello1)
-  
   )
-
 
 (defn -main [& _args]
   ;; (println "wtf: ")
@@ -39,4 +36,3 @@
   (rebel/-main)
   (System/exit 0)
   )
-

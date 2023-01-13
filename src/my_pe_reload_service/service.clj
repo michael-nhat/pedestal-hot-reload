@@ -4,7 +4,7 @@
             [io.pedestal.http.body-params :as body-params]
             [ring.util.response :as ring-resp]))
 (def random-thing (rand))
-(def wtf 343343)
+(def wtf 7885)
 
 (defn about-page
   [request]
