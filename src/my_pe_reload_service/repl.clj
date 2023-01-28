@@ -19,6 +19,7 @@
   (transport/send t {:op "eval" :code "(def conn 3)" :ns "pedestal-hello1.pedestal-hello1"})
   (transport/send t {:out (str ";; nREPL " "wtf anh nhat oi")})
   ;; (nrepl/message t {:out "(+ 2 3)"})
+  ;; don't work with code
   ;; (require 'pedestal-hello1.pedestal-hello1)
   )
 
@@ -29,10 +30,10 @@
 
 ;;   (nrepl-server/start-server :port 7889 :handler cider-nrepl-handler)
   ;; (nrepl.cmdline/-main :port 7885 :handler cider-nrepl-handler :greeting-fn greeting-fn)
-  (apply nrepl.cmdline/-main _args)
-  (server/-main)
+  (server/-main [])
   (ns pedestal-hello1.pedestal-hello1)
+  ;; main has to run first
+  (apply nrepl.cmdline/-main _args)
   (println "my nrepl server ")
   (rebel/-main)
-  (System/exit 0)
-  )
+  (System/exit 0))

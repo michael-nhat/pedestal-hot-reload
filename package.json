@@ -7,6 +7,7 @@
     "test": "test"
   },
   "scripts": {
+    "start" : " clojure  -Sverbose -M:env-dev",
     "test": "echo \"Error: no test specified\" && exit 1", 
     "xa": "neil add dep :lib",
     "xi": "clj  -X:deps mvn-install",
@@ -16,7 +17,6 @@
     "xii": "clj -P",
     "xu-all": "neil dep upgrade :lib",
     "server-repl" : " clojure  -Sverbose -M:env-dev",
-    "start" : " clojure  -Sverbose -M:env-dev",
     "client-repl":  " clojure  -Sverbose -M:client"
   },
   "keywords": [],
