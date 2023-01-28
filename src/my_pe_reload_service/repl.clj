@@ -7,7 +7,8 @@
             [nrepl.cmdline]
             [my-pe-reload-service.server :as server] ;; [nrepl.transport :refer [send]]
             [rebel-readline.main :as rebel]
-            [nrepl.cmdline :as cmdline]))
+            [nrepl.cmdline :as cmdline]
+            [my-pe-reload-service.hipedestal :as hi]))
 ;; (pedestal-hello1.pedestal-hello1/-main)
 
 (def conn)
@@ -31,6 +32,7 @@
 ;;   (nrepl-server/start-server :port 7889 :handler cider-nrepl-handler)
   ;; (nrepl.cmdline/-main :port 7885 :handler cider-nrepl-handler :greeting-fn greeting-fn)
   (server/-main [])
+  ;; (hi/start )
   (ns pedestal-hello1.pedestal-hello1)
   ;; main has to run first
   (apply nrepl.cmdline/-main _args)

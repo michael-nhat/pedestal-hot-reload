@@ -3,38 +3,37 @@
             [io.pedestal.http.route :as route]
             [io.pedestal.http.body-params :as body-params]
             [ring.util.response :as ring-resp]
-            [ring.middleware.json :as json]))
+            [ring.middleware.json :as r-json]
+            [clojure.data.json :as json]
+            [io.pedestal.http.content-negotiation :as conneg]
+            [my-pe-reload-service.hipedestal :as hi]))
 (def random-thing (rand))
-(def wtf 1865)
 
-(defn about-page
-  [request]
+(defn about-page [request]
   (ring-resp/response (format "Clojure %s - served from %s wtf wtf%s "
                               (clojure-version)
                               random-thing
                               (route/url-for ::about-page))))
-(defn home-page
-  [request]
+(defn home-page [request]
   (ring-resp/response "fsdfsffd dfsdfd sfsdsdfsddddddddsaaaaddd xxxxx"))
 
 (defn handler [request]
   (ring-resp/response {:foo "bar"}))
 
-(defn test-json
-  [req]
-  (json/wrap-json-response handler))
+(defn test-json [req]
+  (r-json/wrap-json-response handler))
 
-;; Defines "/" and "/about" routes with their associated :get handlers.
-;; The interceptors defined after the verb map (e.g., {:get home-page}
 ;; apply to / and its children (/about).
 (def common-interceptors [(body-params/body-params) http/html-body])
-(def json-interceptors [json/wrap-json-response])
+(def json-interceptors [r-json/wrap-json-response])
 
 ;; Tabular routes
 (defn routes [] #{["/" :get (conj common-interceptors `home-page)]
                   ["/about" :get (conj common-interceptors `about-page)]
-                  ["/wtf" :get 'test-json]})
-
+                  ;; ["/wtf" :get 'test-json]
+                  ["/greet" :get [hi/coerce-body hi/content-neg-intc hi/respond-hello] :route-name :greet]
+                  ["/echo" :get hi/echo]
+                  })
 
 ;; Map-based routes
 ;(def routes `{"/" {:interceptors [(body-params/body-params) http/html-body]

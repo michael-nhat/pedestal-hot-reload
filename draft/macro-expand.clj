@@ -80,3 +80,7 @@
 
 (def row-date (pan/date_range :start "2000-01-01" :end "2000-01-01"))
 (get-item (get-attr table :loc) row-date)
+
+(def context {:response {:headers "wtf" :w {:a "abc"} :arr ["wtf"]
+                         "wtf" :a}})
+(get-in context [:response "wtf"])
