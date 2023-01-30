@@ -17,7 +17,17 @@
   com.layerware/hugsql {:mvn/version "0.5.3"}
   walkable/walkable {:mvn/version "1.3.0-alpha0"}
   org.postgresql/postgresql {:mvn/version "42.5.1"}
-  ring/ring-json {:mvn/version "0.5.1"}}
+  ring/ring {:mvn/version "1.9.0"}
+  ring/ring-json {:mvn/version "0.5.1"}
+  ring/ring-core {:mvn/version "1.9.6"}
+  ring/ring-jetty-adapter {:mvn/version "1.9.6"}
+  aleph/aleph {:mvn/version "0.6.0"}
+  com.walmartlabs/lacinia {:mvn/version "1.2-rc-1"}
+  http-kit/http-kit {:mvn/version "2.4.0-alpha4"}
+  compojure/compojure {:mvn/version "1.7.0"}
+  yesql/yesql {:mvn/version "0.5.3"}
+  vincit/venia {:mvn/version "0.2.5"}
+  ring-refresh/ring-refresh {:mvn/version "0.1.3"}}
  :aliases {:start ;; added by me
            {:extra-paths ["src"]
             :exec-fn my-pe-reload-service.server/-main}
