@@ -1,0 +1,6 @@
+{:store :database
+ :migration-dir "migrations"
+ :db {:dbtype "postgres"
+      :dbname "clojure_test"
+      :user "root"
+      :password ""}}

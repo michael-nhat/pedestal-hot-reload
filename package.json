@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "start" : " clojure  -Sverbose -M:env-dev",
+    "start": "clojure  -Sverbose -M:env-dev",
     "test": "echo \"Error: no test specified\" && exit 1", 
     "xa": "neil add dep :lib",
     "xi": "clj  -X:deps mvn-install",

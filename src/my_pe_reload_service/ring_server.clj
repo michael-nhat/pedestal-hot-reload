@@ -3,8 +3,8 @@
             [compojure.route :as route]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.adapter.jetty :refer [run-jetty]]
-            ;; [ring.middleware.refresh :refer [wrap-refresh]]
-            [my-pe-reload-service.watch-middleware-ring :refer [wrap-refresh]]
+            [ring.middleware.refresh :refer [wrap-refresh]]
+            ;; [my-pe-reload-service.watch-middleware-ring :refer [wrap-refresh]]
             ))
 
 (defn- create-test-handler [body]
@@ -14,7 +14,8 @@
       wrap-refresh))
 
 (defroutes app
-  (GET "/" [] "<h1>Hello 2kworldkkk</h1>")
+  (ring/)
+  (GET "/" [] "<h1>Hello 3332kworldkkk</h1>")
   (GET "/arg3" [] "<h1>Hello 2kworldkkksdfk</h1>")
   (GET "/arg2" [] (fn [& args] "<h1>xxlksjdkljdsflfound</h1>"))
   (GET "/test" [] (constantly {:status 200
@@ -37,7 +38,7 @@
 ;; (def app3 (wrap-refresh #'reloadable-app))
 (def app3 (wrap-refresh app))
 
-(wrap-refresh)
+;; (wrap-refresh)
 (defn -main
   []
   (run-jetty app3 {:port 3000 :join? false}))

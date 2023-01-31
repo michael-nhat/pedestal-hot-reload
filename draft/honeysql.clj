@@ -3,7 +3,9 @@
             [hugsql.core :as hug]
             [toucan.db :as db]
             [toucan.models :as model]
-            [clojure.java.jdbc :as j]))
+            [next.jdbc :as jdbc]))
+
+(ns-unalias *ns* 'j)
 
 (db/set-default-db-connection!
  {:classname "org.postgresql.Driver"
@@ -16,13 +18,31 @@
 (def pg-db {:dbtype "postgresql"
             :port 5432
             :user "postgres"
-            :dbname "shop_udemy"
+            :dbname "test_clojure"
             :password "postgres"})
 
+(jdbc/query pg-db ["SELECT current_database()"])
+(jdbc/execute! )
+j/
+jdbc/
 
-(j/query pg-db ["SELECT current_database()"])
+(defn j-do-commands [command]
+  (jdbc/db-do-commands pg-db true [command]))
+
+(jdbc/db-do-commands pg-db false "CREATE DATABASE test_clojure")
+(jdbc/db-do-commands pg-db true "SELECT current_database()")
+(jdbc/db-do-commands pg-db false "SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public'
+ORDER BY table_name;")
+(jdbc/execute! pg-db "select 3;")
+
+(j-do-commands "select CURRENT_DATE;")
 
 
+(jdbc/create-table-ddl "student" nil)
+(jdbc/query pg-db "select CURRENT_DATE;")
+(jdbc/query pg-db ["select ??;" 3 3])
 
 (model/defmodel Book :book)
 
