@@ -1,4 +1,4 @@
-(ns my-pe-reload-service.ring-server
+(ns my-pe-reload-service.ring-draft
   (:require [compojure.core :refer [defroutes GET]]
             [compojure.route :as route]
             [ring.middleware.reload :refer [wrap-reload]]
@@ -30,14 +30,7 @@
 
 ;; (def app2 (wrap-refresh app))
 
-;; (def reloadable-app2
-;;   (wrap-reload app2 {:dirs ["src"]}))
-
-;; (def reloadable-app
-;;   (wrap-reload #'app {:dirs ["src"]}))
-
-;; (def app3 (wrap-refresh #'reloadable-app))
-(def app3 (wrap-refresh app))
+;; (def app3 (wrap-refresh app))
 
 ;; (wrap-refresh)
 (defn -main

@@ -5,3 +5,4 @@
     - migration lib, create schema with toucan
     - pedestal api, crud user, login
     - json return with error handling
+    -- with ring
