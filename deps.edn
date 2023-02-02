@@ -34,7 +34,9 @@
   exoscale/seql {:mvn/version "0.2.2"}
   migratus/migratus {:mvn/version "1.4.9"}
   org.clojure/clojure {:mvn/version "1.10.1"}
-  tupelo/tupelo {:mvn/version "22.08.03"}}
+  tupelo/tupelo {:mvn/version "22.08.03"}
+  ring/ring-defaults {:mvn/version  "0.3.4"}
+  ring-cors/ring-cors {:mvn/version "0.1.13"}}
  :aliases {:start ;; added by me
            {:extra-paths ["src"]
             :exec-fn my-pe-reload-service.server/-main}
@@ -60,7 +62,7 @@
                         ;; "--connect"
                         "--handler" "cider.nrepl/cider-nrepl-handler"
                         "--host" "127.0.0.1"
-                        "--port" "7885"]}
+                        "--port" "7778"]}
 
            :migrate {:extra-deps {}
                      :main-opts ["-m" "clj-migratus"]}

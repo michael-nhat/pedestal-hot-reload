@@ -1,17 +1,12 @@
 (ns my-pe-reload-service.ring-draft
-  (:require [compojure.core :refer [defroutes GET]]
+  (:require [compojure.core :refer [defroutes GET POST PUT POST PATCH ]]
+            [compojure.core :as comp]
             [compojure.route :as route]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.adapter.jetty :refer [run-jetty]]
             [ring.middleware.refresh :refer [wrap-refresh]]
             ;; [my-pe-reload-service.watch-middleware-ring :refer [wrap-refresh]]
             ))
-
-(defn- create-test-handler [body]
-  (-> (constantly {:status 200
-                   :headers {"Content-Type" "text/html"}
-                   :body "Content-Type"})
-      wrap-refresh))
 
 (defroutes app
   (GET "/" [] "<h1>Hello 3332kworldkkk</h1>")
@@ -26,16 +21,18 @@
   (GET "/arg" [] (fn [& args]
                    (constantly {:status 200 :headers {"Content-Type" "text/html"}
                                 :body (pr-str args)})))
-  (route/not-found "<h1>Not fklkjalfdskound</h1>"))
+  (route/not-found "<h1>Not fklkjalfdskound</h1>")
+  (comp/POST "/test-post" [name]
+             (str "hello " name " !")))
 
-;; (def app2 (wrap-refresh app))
+(def app2 (wrap-refresh app))
 
 ;; (def app3 (wrap-refresh app))
 
 ;; (wrap-refresh)
 (defn -main
   []
-  (run-jetty app3 {:port 8081 :join? false}))
+  (run-jetty app2 {:port 8081 :join? false}))
 
 ;; (defn -main []
 ;;   (print "ok"))

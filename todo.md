@@ -6,3 +6,10 @@
     - pedestal api, crud user, login
     - json return with error handling
     -- with ring
+    
+    
+    stupid
+https://stackoverflow.com/questions/32322110/compojure-ring-json-not-returning-json
+    https://coderanch.com/t/667352/languages/Unable-find-read-form-parameters
+    
+    

@@ -1,0 +1,32 @@
+:d = http://localhost:8081
+
+# get all products
+GET :d/user/1/2
+
+# get single
+GET :d/test-post
+
+# search product
+GET :d/test
+
+# post product
+POST :d/aa
+{
+  "name": "product 3"
+}
+
+# post product
+POST :d/test-post
+{
+  "name": "product 3"
+}
+
+# update product
+PUT :d/products/1
+{
+  "title": "product 1 renamesfdd",
+  "price": "wtf"
+}
+
+https://www.reddit.com/r/Clojure/comments/mxx6eh/back_to_ring_compojure_still_having_a_problem/
+
