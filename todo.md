@@ -14,3 +14,7 @@
 stupid
 https://stackoverflow.com/questions/32322110/compojure-ring-json-not-returning-json
 https://coderanch.com/t/667352/languages/Unable-find-read-form-parameters
+
+https://github.com/clojure-emacs/cider/issues/3232
+
+https://javahippie.net/clojure/cloud/2020/04/21/clojurenative02.html

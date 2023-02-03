@@ -50,3 +50,11 @@ ORDER BY table_name;")
 
 (Book 1)
 
+(System/setProperty "org.eclipse.jetty.util.log.class", "org.eclipse.jetty.util.log.StdErrLog")
+(System/setProperty "org.eclipse.jetty.LEVEL", "OFF")
+
+(.getLogger
+ org.eclipse.jetty.util.log.Logger
+ )
+
+

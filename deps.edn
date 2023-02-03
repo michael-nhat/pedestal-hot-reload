@@ -45,7 +45,9 @@
   ;; auth
   buddy/buddy {:mvn/version "2.0.0"}
   ;; log
-  spootnik/unilog {:mvn/version  "0.7.31"}}
+  spootnik/unilog {:mvn/version  "0.7.31"}
+  ;; ring-logger/ring-logger {:mvn/version  "1.0.1"}
+  com.taoensso/timbre {:mvn/version  "5.2.1"}}
  :aliases {:start ;; added by me
            {:extra-paths ["src"]
             :exec-fn my-pe-reload-service.server/-main}
@@ -71,7 +73,10 @@
                         ;; "--connect"
                         "--handler" "cider.nrepl/cider-nrepl-handler"
                         "--host" "127.0.0.1"
-                        "--port" "7778"]}
+                        "--port" "7778"]
+            :jvm-opts ["-Dorg.eclipse.jetty.util.log.class=org.eclipse.jetty.util.log.StdErrLog"
+                                                    "-Dorg.eclipse.jetty.LEVEL=INFO"
+                                                    "-Dorg.eclipse.jetty.websocket.LEVEL=INFO"]}
 
            :migrate {:extra-deps {}
                      :main-opts ["-m" "clj-migratus"]}
