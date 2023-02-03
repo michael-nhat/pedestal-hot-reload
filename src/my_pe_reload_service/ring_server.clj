@@ -6,23 +6,27 @@
             [ring.adapter.jetty :refer [run-jetty]]
             [ring.middleware.refresh :refer [wrap-refresh]]
             [ring.middleware.json :as r-json]
-            [ring.middleware.params :refer [params-request wrap-params]]
+            [ring.middleware.params :as params :refer [params-request wrap-params]]
             [ring.middleware.keyword-params :as r-kw]
             [ring.middleware.defaults :as r-default]
             [ring.middleware.cors :as r-cors]
-            [ring.middleware.params :as params]))
+            ))
 
 (defroutes routes
   (GET "/" [] "<h1>Hello 3332kworldkkk</h1>")
   (GET "/user/:id/:greeting" [id greeting] (str "<h1> greet" greeting " user " id "</h1>"))
   (GET "/arg2" [] (fn [& args] "<h1>xxlksjdkljdsflfound</h1>"))
   (POST "/test-post" name
-    (prn "hello " name " !"))
+    (response (prn "hello " name " !")))
   ;; if no "real" response, it would run  to not found
-  (comp/PATCH "/aa" {x :params}
-    (response (str "wt:" x)))
+  (comp/PATCH "/hello" {{x :name} :params}
+    (response (str "Hello " x)))
+  (POST "/aa" {{x :name} :params}
+    (response (str "hello " x)))
   (POST "/ab" req
     (let [{x :params} req] (r-util/response (str x))))
+  (POST "/req" req
+    (do (print "reqww: ") (prn req) (response req)))
   (POST "/hello" req
     (let [{x :params} req] (r-util/response (str x))))
   (GET "/ww" request (str request))
@@ -40,13 +44,14 @@
              ;; (r-cors/wrap-cors :access-control-allow-origin [#".*"]
              ;;                   :access-control-allow-methods
              ;;                   [:get :put :post :delete :patch])
+             wrap-params
              (r-json/wrap-json-body {:keywords? true, :bigdecimals? true})
              r-json/wrap-json-response
+             (r-default/wrap-defaults r-default/api-defaults)
              r-json/wrap-json-params
-             r-kw/wrap-keyword-params
-             wrap-reload
-             (r-default/wrap-defaults r-default/api-defaults)))
+             r-kw/wrap-keyword-params))
 
+(def app-reload (wrap-reload app))
 (defn -main
   []
-  (run-jetty #'app {:port 8081 :join? false}))
+  (run-jetty #'app-reload {:port 8081 :join? false}))

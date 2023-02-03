@@ -10,11 +10,11 @@ GET :d/test-post
 GET :d/test
 
 # patch
-PATCH :d/aa
+PATCH :d/hello
 content-type: application/json
 user-agent: emacs resclient
 {
-  "name": "patch aa"
+  "name": "Nhat"
 }
 
 # post product
@@ -23,6 +23,14 @@ content-type: application/json
 user-agent: emacs resclient
 {
   "name": "sdjka"
+}
+
+# post product
+POST :d/req
+content-type: application/json
+user-agent: emacs resclient
+{
+  "name": "sdja"
 }
 
 # post product
@@ -35,6 +43,8 @@ user-agent: emacs resclient
 
 # post product
 POST :d/test-post
+content-type: application/json
+user-agent: emacs resclient
 {
   "name": "product 3"
 }
