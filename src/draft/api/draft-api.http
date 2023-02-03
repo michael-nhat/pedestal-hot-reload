@@ -9,10 +9,28 @@ GET :d/test-post
 # search product
 GET :d/test
 
+# patch
+PATCH :d/aa
+content-type: application/json
+user-agent: emacs resclient
+{
+  "name": "patch aa"
+}
+
+# post product
+POST :d/ab
+content-type: application/json
+user-agent: emacs resclient
+{
+  "name": "sdjka"
+}
+
 # post product
 POST :d/aa
+content-type: application/json
+user-agent: emacs resclient
 {
-  "name": "product 3"
+  "name": "sdja"
 }
 
 # post product
@@ -29,4 +47,3 @@ PUT :d/products/1
 }
 
 https://www.reddit.com/r/Clojure/comments/mxx6eh/back_to_ring_compojure_still_having_a_problem/
-

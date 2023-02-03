@@ -1,7 +1,7 @@
 (ns my-pe-reload-service.ring-server
   (:require [compojure.core :as comp :refer [defroutes GET POST]]
             [compojure.route :as route]
-            [ring.util.response :as r-util]
+            [ring.util.response :as r-util :refer [response]]
             [ring.middleware.reload :refer [wrap-reload]]
             [ring.adapter.jetty :refer [run-jetty]]
             [ring.middleware.refresh :refer [wrap-refresh]]
@@ -9,7 +9,8 @@
             [ring.middleware.params :refer [params-request wrap-params]]
             [ring.middleware.keyword-params :as r-kw]
             [ring.middleware.defaults :as r-default]
-            [ring.middleware.cors :as r-cors]))
+            [ring.middleware.cors :as r-cors]
+            [ring.middleware.params :as params]))
 
 (defroutes routes
   (GET "/" [] "<h1>Hello 3332kworldkkk</h1>")
@@ -18,9 +19,13 @@
   (POST "/test-post" name
     (prn "hello " name " !"))
   ;; if no "real" response, it would run  to not found
-  (POST "/aa" name
-    (r-util/response (prn name)))
-  (GET "/ww" request (r-util/response (prn request)))
+  (comp/PATCH "/aa" {x :params}
+    (response (str "wt:" x)))
+  (POST "/ab" req
+    (let [{x :params} req] (r-util/response (str x))))
+  (POST "/hello" req
+    (let [{x :params} req] (r-util/response (str x))))
+  (GET "/ww" request (str request))
   (comp/GET "/test-post" []
     (str "hello " 8 " !"))
   (GET "/test" [] {:status 200
@@ -33,17 +38,14 @@
 
 (def app (-> routes
              ;; (r-cors/wrap-cors :access-control-allow-origin [#".*"]
-             ;;                   :access-control-allow-methods [:get :put :post :delete])
+             ;;                   :access-control-allow-methods
+             ;;                   [:get :put :post :delete :patch])
              (r-json/wrap-json-body {:keywords? true, :bigdecimals? true})
              r-json/wrap-json-response
              r-json/wrap-json-params
              r-kw/wrap-keyword-params
-             ;; wrap-reload
-             (r-default/wrap-defaults
-              ;; r-default/site-defaults
-              ;; (assoc-in r-default/site-defaults [:security :anti-forgery] false)
-              r-default/api-defaults
-                                      )))
+             wrap-reload
+             (r-default/wrap-defaults r-default/api-defaults)))
 
 (defn -main
   []
