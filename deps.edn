@@ -2,10 +2,11 @@
  :deps
  {io.pedestal/pedestal.service {:mvn/version "0.5.11-beta-1"}
   io.pedestal/pedestal.jetty {:mvn/version "0.5.11-beta-1"}
-  ch.qos.logback/logback-classic {:mvn/version "1.2.10", :exclusions [org.slf4j/slf4j-api]}
-  org.slf4j/jul-to-slf4j {:mvn/version "1.7.35"}
-  org.slf4j/jcl-over-slf4j {:mvn/version "1.7.35"}
-  org.slf4j/log4j-over-slf4j {:mvn/version "1.7.35"}
+  ;; ch.qos.logback/logback-classic {:mvn/version "1.2.10", :exclusions [org.slf4j/slf4j-api]}
+  ;; org.slf4j/jul-to-slf4j {:mvn/version "1.7.36"}
+  ;; org.slf4j/jcl-over-slf4j {:mvn/version "1.7.36"}
+  ;; org.slf4j/log4j-over-slf4j {:mvn/version "1.7.36"}
+  ;; org.clojars.kjw/slf4j-simple {:mvn/version "1.5.6"}
   ns-tracker/ns-tracker {:mvn/version "0.4.0"}
   nrepl/nrepl {:mvn/version "1.1.0-alpha1"}
   cider/cider-nrepl {:mvn/version "0.29.0"}
@@ -34,9 +35,17 @@
   exoscale/seql {:mvn/version "0.2.2"}
   migratus/migratus {:mvn/version "1.4.9"}
   org.clojure/clojure {:mvn/version "1.10.1"}
+  ;; good print lib
   tupelo/tupelo {:mvn/version "22.08.03"}
   ring/ring-defaults {:mvn/version  "0.3.4"}
-  ring-cors/ring-cors {:mvn/version "0.1.13"}}
+  ring-cors/ring-cors {:mvn/version "0.1.13"}
+  ragtime/ragtime {:mvn/version "0.8.1"}
+  ;; ?json lib
+  cheshire/cheshire {:mvn/version  "5.11.0"}
+  ;; auth
+  buddy/buddy {:mvn/version "2.0.0"}
+  ;; log
+  spootnik/unilog {:mvn/version  "0.7.31"}}
  :aliases {:start ;; added by me
            {:extra-paths ["src"]
             :exec-fn my-pe-reload-service.server/-main}

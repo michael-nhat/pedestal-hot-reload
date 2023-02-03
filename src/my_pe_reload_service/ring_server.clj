@@ -13,8 +13,8 @@
             ))
 
 (defroutes routes
-  (GET "/" [] "<h1>Hello 3332kworldkkk</h1>")
   (GET "/user/:id/:greeting" [id greeting] (str "<h1> greet" greeting " user " id "</h1>"))
+  (GET "/" [] "<h1>Hello 3332kworldkkk</h1>")
   (GET "/arg2" [] (fn [& args] "<h1>xxlksjdkljdsflfound</h1>"))
   (POST "/test-post" name
     (response (prn "hello " name " !")))
@@ -32,13 +32,13 @@
   (GET "/ww" request (str request))
   (comp/GET "/test-post" []
     (str "hello " 8 " !"))
-  (GET "/test" [] {:status 200
-                   :headers {"Content-Type" "application/json"}
-                   :body {:wtf "dsj"}})
+  (GET "/test" [] (do (print 'wtf) {:status 200
+                          :headers {"Content-Type" "application/json"}
+                          :body {:wtf "dsj"}}))
   (GET "/arg" [] (fn [& args]
                    (constantly {:status 200 :headers {"Content-Type" "text/html"}
                                 :body (pr-str args)})))
-  (route/not-found "<h1>Not fklkjalfdskound</h1>"))
+  (route/not-found "<h3>Something wrong ?!</h3>"))
 
 (def app (-> routes
              ;; (r-cors/wrap-cors :access-control-allow-origin [#".*"]
@@ -52,6 +52,10 @@
              r-kw/wrap-keyword-params))
 
 (def app-reload (wrap-reload app))
-(defn -main
-  []
-  (run-jetty #'app-reload {:port 8081 :join? false}))
+
+(defonce server (run-jetty #'app-reload {:port 8081 :join? false}))
+
+(comment (.stop server))
+
+(defn -main []
+  (.start server))
