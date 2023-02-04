@@ -14,15 +14,6 @@
             [taoensso.timbre :as timbre ]
             ))
 
-(timbre/debug "hello wtf2")
-  ; will print 
-(def example-config  {:level :warn})
-(timbre/merge-config! example-config)
-  ; update the configuration 
-(timbre/debug "hello wtf1")
-;; (System/setProperty "org.eclipse.jetty.util.log.class", "org.eclipse.jetty.util.log.StdErrLog")
-;; (System/setProperty "org.eclipse.jetty.LEVEL", "WARN")
-
 (defroutes routes
   (GET "/user/:id/:greeting" [id greeting] (str "<h1> greet" greeting " user " id "</h1>"))
   (GET "/" [] "<h1>Hello 3332kworldkkk</h1>")
