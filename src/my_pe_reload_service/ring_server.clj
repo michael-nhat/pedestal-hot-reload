@@ -11,8 +11,8 @@
             [ring.middleware.defaults :as r-default]
             [ring.middleware.cors :as r-cors]
             ;; [ring.logger :as logger]
-            [taoensso.timbre :as timbre ]
-            ))
+            [taoensso.timbre :as timbre]
+            [jumblerg.middleware.cors :refer [wrap-cors]]))
 
 (defroutes routes
   (GET "/user/:id/:greeting" [id greeting] (str "<h1> greet" greeting " user " id "</h1>"))
@@ -35,23 +35,52 @@
   (comp/GET "/test-post" []
     (str "hello " 8 " !"))
   (GET "/test" [] (do (print 'wtf) {:status 200
-                          :headers {"Content-Type" "application/json"}
-                          :body {:wtf "dsj"}}))
+                                    ;; :headers {"Content-Type" "application/json"
+                                    ;;           "Access-Control-Allow-Origin" "*"}
+                                    :body {:wtf "dsj"}}))
   (GET "/arg" [] (fn [& args]
                    (constantly {:status 200 :headers {"Content-Type" "text/html"}
                                 :body (pr-str args)})))
   (route/not-found "<h3>Something wrong ?!</h3>"))
 
+(defn allow-cross-origin
+  "Middleware function to allow cross origin requests from browsers.
+  When a browser attempts to call an API from a different domain, it makes an OPTIONS request first to see the server's
+  cross origin policy.  So, in this method we return that when an OPTIONs request is made.
+  Additionally, for non OPTIONS requests, we need to just returm the 'Access-Control-Allow-Origin' header or else
+  the browser won't read the data properly.
+  The above notes are all based on how Chrome works. "
+  ([handler]
+   (allow-cross-origin handler "http://localhost:8080"))
+  ([handler allowed-origins]
+   (fn [request]
+     (-> (handler request)                     ; Don't pass the requests down, just return what the browser needs to continue.
+         (assoc-in [:headers "Access-Control-Allow-Origin"] allowed-origins)
+         (assoc-in [:headers "Access-Control-Allow-Methods"] "*")
+         (assoc-in [:headers "Access-Control-Allow-Credentials"] "true")
+
+         (assoc-in [:headers "Access-Control-Allow-Headers"] "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization")
+         ;; (assoc-in [:headers "Access-Control-Allow-Headers"] "X-Requested-With,Content-Type,Cache-Control,Origin,Accept,Authorization")
+         (assoc :status 200)))))
+
 (def app (-> routes
-             ;; (r-cors/wrap-cors :access-control-allow-origin [#".*"]
-             ;;                   :access-control-allow-methods
-             ;;                   [:get :put :post :delete :patch])
              wrap-params
+             ;; (wrap-cors #".*")
+             ;; (wrap-cors identity)
              (r-json/wrap-json-body {:keywords? true, :bigdecimals? true})
              r-json/wrap-json-response
              (r-default/wrap-defaults r-default/api-defaults)
              r-json/wrap-json-params
-             r-kw/wrap-keyword-params))
+             allow-cross-origin
+             ;; (r-cors/wrap-cors :access-control-allow-origin
+             ;;                   ;; #"[\s\S]+"
+             ;;                   [#"http://localhost:8080"]
+             ;;                   :access-control-allow-methods [:get :put :post :delete :patch]
+             ;;                   :access-control-allow-headers #{"Content-Type"})
+             r-kw/wrap-keyword-params
+             ;; (r-cors/wrap-cors :access-control-allow-origin [#"http://localhost:8080"]
+             ;;                   :access-control-allow-methods [:get :put :post :delete])
+             ))
 
 (def app-reload (wrap-reload app))
 

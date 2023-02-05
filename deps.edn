@@ -47,7 +47,8 @@
   ;; log
   spootnik/unilog {:mvn/version  "0.7.31"}
   ;; ring-logger/ring-logger {:mvn/version  "1.0.1"}
-  com.taoensso/timbre {:mvn/version  "5.2.1"}}
+  com.taoensso/timbre {:mvn/version  "5.2.1"}
+  jumblerg/ring-cors {:mvn/version "3.0.0"}}
  :aliases {:client ;; added by neil
            {:extra-deps {}
             :main-opts ["-m" "nrepl.cmdline" "--interactive" "--color" "--connect"

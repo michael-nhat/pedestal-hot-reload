@@ -1,7 +1,8 @@
 (ns user2
   (:require [libpython-clj2.require :refer [require-python]]
             [libpython-clj2.python :refer [py. py.. py.-] :as py]
-            [tech.v3.datatype :as dtype]))
+            [tech.v3.datatype :as dtype]
+            [jumblerg.middleware.cors :refer [wrap-cors]]))
 (ns user2)
 
 
@@ -30,7 +31,6 @@
 
 (print main-globals)
 
-(ns user3)
 
 (require '[libpython-clj2.require :refer [require-python]])
 (require '[libpython-clj2.python :refer [call-attr get-item get-attr py.]])
@@ -80,3 +80,10 @@
 
 (def row-date (pan/date_range :start "2000-01-01" :end "2000-01-01"))
 (get-item (get-attr table :loc) row-date)
+
+
+(def w (wrap-cors :access-control-allow-origin
+                               ;; #"[\s\S]+"
+                               [#".*"]
+                               :access-control-allow-methods #{:get :put :post :delete :patch}
+                               :access-control-allow-headers #{"Content-Type"}))
