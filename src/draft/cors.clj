@@ -79,6 +79,3 @@
  "host" "localhost:8081",
  "content-length" "0",
  "mime-version" "1.0"}
-
-
-(def a "mig_clj,postgres,postgres")
