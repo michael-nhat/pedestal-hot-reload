@@ -1,5 +1,6 @@
 (ns my-pe-reload-service.server
-  (:gen-class) ; for -main method in uberjar
+  ;; (:gen-class)
+                                        ; for -main method in uberjar
   (:require [io.pedestal.http :as http]
             [io.pedestal.http.route :as route]
             [my-pe-reload-service.service :as service]

@@ -12,12 +12,19 @@
             [ring.middleware.cors :as r-cors]
             ;; [ring.logger :as logger]
             [taoensso.timbre :as timbre]
-            [jumblerg.middleware.cors :refer [wrap-cors]]))
+            [jumblerg.middleware.cors :refer [wrap-cors]]
+            [my-pe-reload-service.ring-service.user :as users]))
+
+;; error: :msg with http code
+;; res: option :msg with :data
 
 (defroutes routes
   (GET "/user/:id/:greeting" [id greeting] (str "<h1> greet" greeting " user " id "</h1>"))
   (GET "/" [] "<h1>Hello 3332kworldkkk</h1>")
   (GET "/arg2" [] (fn [& args] "<h1>xxlksjdkljdsflfound</h1>"))
+  (POST "/login" {{pass :password,
+                   username :username} :params}
+    (users/login username pass))
   (POST "/test-post" name
     (response (prn "hello " name " !")))
   ;; if no "real" response, it would run  to not found
@@ -34,34 +41,22 @@
   (GET "/ww" request (str request))
   (comp/GET "/test-post" []
     (str "hello " 8 " !"))
-  (GET "/test" [] (do (print 'wtf) {:status 200
+  (GET "/test" [] (do (comment (print 'wtf)) {:status 200
                                     ;; :headers {"Content-Type" "application/json"
                                     ;;           "Access-Control-Allow-Origin" "*"}
-                                    :body {:wtf "dsj"}}))
+                                              :body {:wtf "dsj"}}))
   (GET "/arg" [] (fn [& args]
                    (constantly {:status 200 :headers {"Content-Type" "text/html"}
                                 :body (pr-str args)})))
   (route/not-found "<h3>Something wrong ?!</h3>"))
 
-(defn allow-cross-origin
-  "Middleware function to allow cross origin requests from browsers.
-  When a browser attempts to call an API from a different domain, it makes an OPTIONS request first to see the server's
-  cross origin policy.  So, in this method we return that when an OPTIONs request is made.
-  Additionally, for non OPTIONS requests, we need to just returm the 'Access-Control-Allow-Origin' header or else
-  the browser won't read the data properly.
-  The above notes are all based on how Chrome works. "
-  ([handler]
-   (allow-cross-origin handler "http://localhost:8080"))
-  ([handler allowed-origins]
-   (fn [request]
-     (-> (handler request)                     ; Don't pass the requests down, just return what the browser needs to continue.
-         (assoc-in [:headers "Access-Control-Allow-Origin"] allowed-origins)
-         (assoc-in [:headers "Access-Control-Allow-Methods"] "*")
-         (assoc-in [:headers "Access-Control-Allow-Credentials"] "true")
-
-         (assoc-in [:headers "Access-Control-Allow-Headers"] "Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization")
-         ;; (assoc-in [:headers "Access-Control-Allow-Headers"] "X-Requested-With,Content-Type,Cache-Control,Origin,Accept,Authorization")
-         (assoc :status 200)))))
+(defn print-arg
+  "test middleware" [handler]
+  (fn [req]
+    (prn "req: " req)
+    (let [res (handler req)]
+      (prn "res: " res)
+      res)))
 
 (def app (-> routes
              wrap-params
@@ -71,16 +66,13 @@
              r-json/wrap-json-response
              (r-default/wrap-defaults r-default/api-defaults)
              r-json/wrap-json-params
-             allow-cross-origin
-             ;; (r-cors/wrap-cors :access-control-allow-origin
-             ;;                   ;; #"[\s\S]+"
-             ;;                   [#"http://localhost:8080"]
-             ;;                   :access-control-allow-methods [:get :put :post :delete :patch]
-             ;;                   :access-control-allow-headers #{"Content-Type"})
              r-kw/wrap-keyword-params
-             ;; (r-cors/wrap-cors :access-control-allow-origin [#"http://localhost:8080"]
-             ;;                   :access-control-allow-methods [:get :put :post :delete])
-             ))
+             (r-cors/wrap-cors
+              :access-control-allow-origin [#".*"]
+              :access-control-allow-methods #{:get :put :post :delete :option :patch}
+              :access-control-allow-credentials "true"
+              :access-control-allow-headers #{"Content-Type" "Accept" "Origin" "X-Api-Key" "X-Request-With" "Authorization"})
+             print-arg))
 
 (def app-reload (wrap-reload app))
 
