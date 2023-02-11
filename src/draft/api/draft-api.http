@@ -1,13 +1,26 @@
 :d = http://localhost:8081
 
-# get all products
+# get all user
 GET :d/user/1/2
+
+# login wrong
+POST :d/login
+content-type: application/json
+{
+  "username": "nhatk",
+  "password": "123456"
+}
+
+# get all user
+POST :d/register
+content-type: application/json
+{
+  "username": "nhat",
+  "password": "123456"
+}
 
 # get single
 GET :d/test-post
-
-# search product
-GET :d/test
 
 # patch
 PATCH :d/hello
@@ -17,12 +30,15 @@ user-agent: emacs resclient
   "name": "Nhat"
 }
 
+#kfas
+GET :d/ab
+
 # post product
 POST :d/ab
 content-type: application/json
 user-agent: emacs resclient
 {
-  "name": "sdjka"
+  "namke": "sdjka"
 }
 
 # post product
@@ -56,4 +72,4 @@ PUT :d/products/1
   "price": "wtf"
 }
 
-https://www.reddit.com/r/Clojure/comments/mxx6eh/back_to_ring_compojure_still_having_a_problem/
+# https://www.reddit.com/r/Clojure/comments/mxx6eh/back_to_ring_compojure_still_having_a_problem/

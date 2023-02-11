@@ -23,8 +23,6 @@
 
 (jdbc/query pg-db ["SELECT current_database()"])
 (jdbc/execute! )
-j/
-jdbc/
 
 (defn j-do-commands [command]
   (jdbc/db-do-commands pg-db true [command]))
@@ -56,5 +54,13 @@ ORDER BY table_name;")
 (.getLogger
  org.eclipse.jetty.util.log.Logger
  )
+
+
+
+(defn chain-destruct [{:keys [db]} [_ credent]]
+  (println "db: " db)
+  (println "cre: " credent))
+
+(chain-destruct {:db {:k 2 :kk 34}} [2 4])
 
 

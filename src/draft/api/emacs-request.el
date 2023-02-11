@@ -14,3 +14,4 @@
                 (message "wtf")))))
 
 (plz 'get "https://github.com/alphapapa/plz.el#installation")
+
