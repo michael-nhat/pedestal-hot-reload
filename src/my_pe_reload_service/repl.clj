@@ -30,7 +30,7 @@
   ;; (println _args)
   ;; (println "wtf end: ")
 
-;;   (nrepl-server/start-server :port 7889 :handler cider-nrepl-handler)
+  (nrepl-server/start-server :port 7889 :handler cider-nrepl-handler)
   ;; (nrepl.cmdline/-main :port 7885 :handler cider-nrepl-handler :greeting-fn greeting-fn)
   ;; (server/-main [])
   ;; (hi/start )
