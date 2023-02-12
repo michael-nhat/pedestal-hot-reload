@@ -5,7 +5,6 @@
             [jumblerg.middleware.cors :refer [wrap-cors]]))
 (ns user2)
 
-
 (require '[libpython-clj2.python
                  :refer [as-python as-jvm
                          ->python ->jvm
@@ -30,7 +29,6 @@
 (run-simple-string "print('your variable is:' + str(my_var))")
 
 (print main-globals)
-
 
 (require '[libpython-clj2.require :refer [require-python]])
 (require '[libpython-clj2.python :refer [call-attr get-item get-attr py.]])
@@ -76,7 +74,6 @@
 (macroexpand `(report (=)))
 (macroexpand `(report2 (1)))
 (macroexpand `(a1 randn 4 3))
-
 
 (def row-date (pan/date_range :start "2000-01-01" :end "2000-01-01"))
 (get-item (get-attr table :loc) row-date)
