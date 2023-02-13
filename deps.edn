@@ -35,6 +35,7 @@
   exoscale/seql {:mvn/version "0.2.2"}
   migratus/migratus {:mvn/version "1.4.9"}
   org.clojure/clojure {:mvn/version "1.10.1"}
+
   ;; good print lib
   tupelo/tupelo {:mvn/version "22.08.03"}
   ring/ring-defaults {:mvn/version  "0.3.4"}
@@ -77,7 +78,10 @@
                        "-Dorg.eclipse.jetty.LEVEL=INFO"
                        "-Dorg.eclipse.jetty.websocket.LEVEL=INFO"]}
 
-           :migrate {:extra-deps {}
+           :migrate {:extra-deps {com.github.paulbutcher/clj-migratus {:git/tag "v1.0.3"
+                                                                       :git/sha "46a3ac1"}}
+                     :jvm-opts [;; "-Dmigratus.config.path=<CLASSPATH_LOCATION>"
+                                ]
                      :main-opts ["-m" "clj-migratus"]}
 
            :repl-rebel

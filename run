@@ -1,0 +1,14 @@
+fish
+function posix-source
+	for i in (cat ./.env)
+		set arr (echo $i |tr = \n)
+  		set -gx $arr[1] $arr[2]
+	end
+end
+
+bash:
+set -a
+source ./.env.txt 
+set +a
+
+source ./run && run-script

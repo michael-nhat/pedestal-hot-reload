@@ -9,7 +9,7 @@
              :as adapter]))
 
 
-(def db {:dbtype "postgres" :dbname "test_clojure" :user "postgres"
+(def db {:dbtype "postgres" :dbname "postgres" :user "postgres"
          :password "postgres" :port 5432})
 
 (def ds (jdbc/get-datasource db))
@@ -33,6 +33,8 @@ create table address (
 (clojure.java.io/reader "db/example.sql")
 
 (jdbc/execute! ds ["create database mig_clj"])
+
+(jdbc/execute! ds ["create database clojure_mig"])
 
 (jdbc/execute! ds ["set search_path = mig_clj;"])
 (jdbc/execute! ds ["select current_database()"])

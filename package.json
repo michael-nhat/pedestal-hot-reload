@@ -8,9 +8,10 @@
   },
   "scripts": {
     "start": "clojure  -Sverbose -M:env-dev",
+    "mig": "clj -M:migrate",
     "test": "echo \"Error: no test specified\" && exit 1", 
     "xa": "neil add dep :lib",
-    "xi": "clj  -X:deps mvn-install",
+    "xi": "clj -X:deps mvn-install",
     "s": "clj -X:start",
     "s-a": "clj -M:start",
     "xu": "neil dep upgrade :lib",
