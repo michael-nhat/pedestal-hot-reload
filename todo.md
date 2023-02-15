@@ -42,3 +42,8 @@ https://javahippie.net/clojure/cloud/2020/04/21/clojurenative02.html
 ;; and it could
 ;; inconsistion data, when a safe logic, it could be check at frontend
 ;; fast grown also be prior
+
+;; seed when connect up, down? auto seed when connection up? when we don't want
+;; change filename (specificly)
+;; why don't seed at last? because sometime we have to change seed
+

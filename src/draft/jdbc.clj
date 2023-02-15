@@ -11,6 +11,8 @@
 
 (def db {:dbtype "postgres" :dbname "postgres" :user "postgres"
          :password "postgres" :port 5432})
+(def db {:dbtype "postgres" :dbname "mig_clj" :user "postgres"
+         :password "postgres" :port 5432})
 
 (def ds (jdbc/get-datasource db))
 
@@ -35,6 +37,8 @@ create table address (
 (jdbc/execute! ds ["create database mig_clj"])
 
 (jdbc/execute! ds ["create database clojure_mig"])
+
+(jdbc/execute! ds ["drop table schema_migrations"])
 
 (jdbc/execute! ds ["set search_path = mig_clj;"])
 (jdbc/execute! ds ["select current_database()"])

@@ -1,7 +1,7 @@
 
 
 {:store :database
- :migration-dir "migrations"
+ :migration-dir "resources/migrations"
  :db
  ;; "jdbc:postgresql://postgres:postgres@localhost:5432/mig_clj"
  {:dbtype "postgres"

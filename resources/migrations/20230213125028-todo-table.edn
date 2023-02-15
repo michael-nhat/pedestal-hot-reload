@@ -1,0 +1,4 @@
+{:ns app.migrations.todo-table
+ :up-fn migrate-up
+ :down-fn migrate-down
+ :transaction? true}
