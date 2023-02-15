@@ -1,9 +1,9 @@
 (ns user
-  (:require [toucan.db :refer [] :as touc]
-            [hugsql.core :as hug]
+  (:require [hugsql.core :as hug]
             [toucan.db :as db]
             [toucan.models :as model]
-            [next.jdbc :as jdbc]))
+            [next.jdbc :as jdbc]
+            [honey.sql :as hsql]))
 
 (ns-unalias *ns* 'j)
 
@@ -13,6 +13,7 @@
   :subname "//localhost:5432/shop_udemy"
   :user "postgres"
   :password "postgres"})
+
 
 
 (def pg-db {:dbtype "postgresql"
@@ -44,7 +45,7 @@ ORDER BY table_name;")
 
 (model/defmodel Book :book)
 
-(db/select- ['Database :name] :id )
+(db/select ['Database :name] :id )
 
 (Book 1)
 
@@ -62,5 +63,8 @@ ORDER BY table_name;")
   (println "cre: " credent))
 
 (chain-destruct {:db {:k 2 :kk 34}} [2 4])
+
+
+(honey.sql/format {:select [:name]})
 
 

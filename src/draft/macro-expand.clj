@@ -43,6 +43,7 @@
 (np/linspace 2 3 :num 10)
 (py/py. np/random randn 4)
 ;; (defmacro a1 [fun res res2] `(py. np/random ~fun ~@(list res res2)))
+;; inline expand, spread sequence
 (macroexpand `(a1 "randn" 4.534 sd))
 (defmacro plus [a b] `(+ ~a ~b))
 (macroexpand `(plus "kjsdf" 4))
